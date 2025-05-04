@@ -2,6 +2,7 @@ package com.eazybytes.eazyschool.controller;
 
 import com.eazybytes.eazyschool.model.Contact;
 import com.eazybytes.eazyschool.service.ContactService;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +15,10 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 
 @Controller
+@Slf4j
 public class ContactController {
 
-    private static final Logger logger = LoggerFactory.getLogger(ContactController.class);
+//    private static final Logger logger = LoggerFactory.getLogger(ContactController.class);
 
     ContactService contactService;
 
