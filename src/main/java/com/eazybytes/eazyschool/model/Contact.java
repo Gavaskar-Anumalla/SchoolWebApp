@@ -1,5 +1,13 @@
 package com.eazybytes.eazyschool.model;
 
+import lombok.Data;
+
+/*
+@Data annotation is provided by Lombok library which generates getter, setter,
+equals(), hashCode(), toString() methods & Constructor at compile time.
+This makes our code short and clean.
+* */
+@Data
 public class Contact {
 
     private String name;
@@ -7,7 +15,7 @@ public class Contact {
     private String email;
     private String subject;
     private String message;
-    public String getName() {
+    /*public String getName() {
         return name;
     }
     public void setName(String name) {
@@ -41,6 +49,6 @@ public class Contact {
     public String toString() {
         return "Contact [name=" + name + ", mobileNum=" + mobileNum + ", email=" + email + ", subject=" + subject
                 + ", message=" + message + "]";
-    }
+    }*/
 
 }
