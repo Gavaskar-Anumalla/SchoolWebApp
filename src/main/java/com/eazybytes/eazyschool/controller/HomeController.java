@@ -9,8 +9,8 @@ public class HomeController {
 
 //    @RequestMapping("/home")
     @RequestMapping(value = {"","/","home"})
-    public String displayHomePage(Model model) {
-        model.addAttribute("username", "John Doe");
+    public String displayHomePage() {
+       // model.addAttribute("username", "John Smith");
         return "home.html";
     }
 }
