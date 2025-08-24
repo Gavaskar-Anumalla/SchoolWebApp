@@ -14,6 +14,7 @@ public class DashboardController {
         model.addAttribute("username", auth.getName());
         model.addAttribute("roles", auth.getAuthorities().toString());
 //        model.addAttribute("role", auth.getAuthorities().iterator().next().getAuthority());
+//        throw  new RuntimeException("Not authorized");
         return "dashboard.html";
     }
 }
