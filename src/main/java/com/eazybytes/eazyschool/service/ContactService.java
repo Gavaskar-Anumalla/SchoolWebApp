@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 
 /*
@@ -36,22 +37,30 @@ public class ContactService {
         contact.setStatus(EazySchoolConstants.OPEN);
         contact.setCreatedAt(LocalDateTime.now());
         contact.setCreatedBy(EazySchoolConstants.ANONYMOUS);
-        int result = contactRepository.saveContact(contact);
-        if (result > 0) {
+//        int result = contactRepository.saveContact(contact);
+        Contact savedContact=contactRepository.save(contact);
+        if (savedContact!=null&&savedContact.getContactId() > 0) {
             isSaved = true;
         }
         return isSaved;
     }
 
     public List<Contact> findMsgsWithOpenStatus() {
-        List<Contact> contactMsgs = contactRepository.findMsgsWithOpenStatus(EazySchoolConstants.OPEN);
+        List<Contact> contactMsgs = contactRepository.findByStatus(EazySchoolConstants.OPEN);
         return contactMsgs;
     }
 
     public boolean updateMsgStatus(int contactId, String name) {
         boolean isUpdated = false;
-        int result = contactRepository.updateMsgStatus(contactId, EazySchoolConstants.CLOSE, name);
-        if (result > 0) {
+        Optional<Contact> existingContact=contactRepository.findById(contactId);
+        existingContact.ifPresent(contact -> {
+            contact.setStatus(EazySchoolConstants.CLOSE);
+            contact.setUpdatedBy(EazySchoolConstants.ANONYMOUS);
+            contact.setUpdatedAt(LocalDateTime.now());
+        });
+        Contact updatedContact=contactRepository.save(existingContact.get());
+
+        if ( null!=updatedContact&&updatedContact.getUpdatedBy()!=null) {
             isUpdated = true;
         }
         return isUpdated;

@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Controller
 public class HolidaysController {
@@ -40,7 +41,9 @@ public class HolidaysController {
                 new Holiday(" Sep 5 ","Labor Day", Holiday.Type.FEDERAL),
                 new Holiday(" Nov 11 ","Veterans Day", Holiday.Type.FEDERAL)
         );*/
-        List<Holiday> holidays=holidaysRepository.findAllHolidays();
+        Iterable<Holiday> holidaysIterable=holidaysRepository.findAll();
+        List<Holiday> holidays= StreamSupport.stream(holidaysIterable.spliterator(),false)
+                .collect(Collectors.toList());
         Holiday.Type[] types=Holiday.Type.values();
         for (Holiday.Type type : types) {
             model.addAttribute(type.toString(),(holidays.stream().filter(holiday -> holiday.getType().equals(type)).collect(Collectors.toList())));

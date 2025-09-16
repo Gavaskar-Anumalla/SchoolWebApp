@@ -3,6 +3,7 @@ package com.eazybytes.eazyschool.repository;
 import com.eazybytes.eazyschool.model.Contact;
 import com.eazybytes.eazyschool.rowmappers.ContactRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.stereotype.Repository;
@@ -14,8 +15,10 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
-public class ContactRepository {
-    private final JdbcTemplate jdbcTemplate;
+public interface ContactRepository extends CrudRepository<Contact,Integer> {
+
+    List<Contact> findByStatus(String status);
+    /*  private final JdbcTemplate jdbcTemplate;
 
     @Autowired
     public ContactRepository(JdbcTemplate jdbcTemplate) {
@@ -55,5 +58,5 @@ public class ContactRepository {
             }
         });
 
-    }
+    }*/
 }
