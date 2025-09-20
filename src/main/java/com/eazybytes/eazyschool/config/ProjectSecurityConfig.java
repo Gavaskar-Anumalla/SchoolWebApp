@@ -49,7 +49,8 @@ public class ProjectSecurityConfig {
         //Reverted H2 console related security configurations
         /*ignoringRequestMatchers(PathRequest.toH2Console()))  ///To Disable CSRF to H2 Console
                 .headers(headers -> headers.frameOptions(frameOptions -> frameOptions.sameOrigin()))*/
-        http.csrf((csrf) -> csrf.ignoringRequestMatchers("/saveMsg"))
+        http.csrf((csrf) -> csrf.ignoringRequestMatchers("/saveMsg")
+                        .ignoringRequestMatchers("/public/**"))
                 .authorizeHttpRequests((requests) -> requests.requestMatchers("/dashboard").authenticated()
                         .requestMatchers("/displayMessages").hasRole("ADMIN")
                         .requestMatchers("/closeMsg/**").hasRole("ADMIN")
@@ -61,6 +62,7 @@ public class ProjectSecurityConfig {
                         .requestMatchers("/about").permitAll()
                         .requestMatchers("/login").permitAll()
                         .requestMatchers("/logout").permitAll()
+                        .requestMatchers("/public/**").permitAll()
                         //.requestMatchers(PathRequest.toH2Console()).permitAll()  //To provide the public access to H2 Console
                         .requestMatchers("/assets/**").permitAll())
                 .formLogin(loginConfigurer -> loginConfigurer.loginPage("/login")

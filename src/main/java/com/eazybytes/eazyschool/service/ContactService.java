@@ -4,13 +4,10 @@ import com.eazybytes.eazyschool.constants.EazySchoolConstants;
 import com.eazybytes.eazyschool.model.Contact;
 import com.eazybytes.eazyschool.repository.ContactRepository;
 import lombok.extern.slf4j.Slf4j;
-/*import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;*/
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.http.client.ClientHttpRequestFactorySettings;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,8 +32,9 @@ public class ContactService {
         boolean isSaved = false;
         log.info("Contact details :" + contact);
         contact.setStatus(EazySchoolConstants.OPEN);
-        contact.setCreatedAt(LocalDateTime.now());
-        contact.setCreatedBy(EazySchoolConstants.ANONYMOUS);
+        //Commented Since JPA Auditing Enabled
+        /*contact.setCreatedAt(LocalDateTime.now());
+        contact.setCreatedBy(EazySchoolConstants.ANONYMOUS);*/
 //        int result = contactRepository.saveContact(contact);
         Contact savedContact=contactRepository.save(contact);
         if (savedContact!=null&&savedContact.getContactId() > 0) {
@@ -50,13 +48,14 @@ public class ContactService {
         return contactMsgs;
     }
 
-    public boolean updateMsgStatus(int contactId, String name) {
+    public boolean updateMsgStatus(int contactId) {
         boolean isUpdated = false;
         Optional<Contact> existingContact=contactRepository.findById(contactId);
         existingContact.ifPresent(contact -> {
             contact.setStatus(EazySchoolConstants.CLOSE);
-            contact.setUpdatedBy(EazySchoolConstants.ANONYMOUS);
-            contact.setUpdatedAt(LocalDateTime.now());
+            //Commented Since JPA Auditing Enabled
+            /*contact.setUpdatedBy(EazySchoolConstants.ANONYMOUS);
+            contact.setUpdatedAt(LocalDateTime.now());*/
         });
         Contact updatedContact=contactRepository.save(existingContact.get());
 
