@@ -75,7 +75,8 @@ public class ProjectSecurityConfig {
         return http.build();
     }
 
-    @Bean
+  //Reverted Now Because we have implemented Username/ password authentication stored in DB
+  /*  @Bean
     public InMemoryUserDetailsManager inMemoryUserDetailsManager() {
         UserDetails user= User.withDefaultPasswordEncoder()
                 .username("user")
@@ -90,5 +91,5 @@ public class ProjectSecurityConfig {
                 .build();
         return new InMemoryUserDetailsManager(user, admin);
 
-    }
+    }*/
 }
